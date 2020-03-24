@@ -1,51 +1,23 @@
-# fetchdata
-
-Another way to consume a REST API in Dart Flutter
-
-## Create an Stateful widget
-
-> stful
-
-## import async and convert
-
-```
-import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'dart:async';
-
-```
-
-## Install http package
-
-> dependencies
->>   http: ^0.12.0+4
->
-> flutter pub get
->
-```
 import 'package:http/http.dart' as http;
-```
+import 'dart:convert';
 
-## Create variables
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-```
+class _HomePageState extends State<HomePage> {
   final String url = "https://swapi.co/api/people";
   List data;
-```
 
-## Create initState
-
-```
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     this.getJsonData();
   }
-```
-
-## Create method inside class
-
-```
 
   Future<String> getJsonData() async {
     var response = await http.get(
@@ -63,12 +35,14 @@ import 'package:http/http.dart' as http;
     });
     return "Success";
   }
-```
 
-## Finally use it in a ListView builder
-
-```
-ListView.builder(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Retrieve JSON via HTTP Get'),
+      ),
+      body: ListView.builder(
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
@@ -90,5 +64,6 @@ ListView.builder(
           );
         },
       ),
-        
-```
+    );
+  }
+}
